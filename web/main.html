@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body onload="initClock()">
+    <!-- Main Info Container -->
+    
+
+    <!-- Main General Container -->
+    <div class="generalContainer">
+        <div class="clockBox">
+            <div class="datetime">
+                <div class="date">
+                    <span id="dayname">Day</span>,
+                    <span id="month">Month</span>
+                    <span id="daynum">00</span>,
+                    <span id="year">Year</span>
+                </div>
+                <div class="time">
+                    <span id="hour">00</span>:
+                    <span id="minutes">00</span>:
+                    <span id="seconds">00</span>
+                    <span id="period">AM</span>
+                </div>
+            </div>
+        </div>
+        <div class="logoBox">
+            <img src="./static/logo/tedk.png" id="jurusan">
+            <img src="./static/logo/smkn1.png" id="stm">
+            <img src="./static/logo/sig.png" id="sig">
+        </div>
+    </div>
+
+    <!-- Midle Container -->
+    <div class="midleContainer">
+        <!-- Attandance Container -->
+        <div class="attandanceContainer">
+            <div id="elapsedtime">elapsedtime</div>
+            <h1 class="Judul">Buku Tamu</h1>
+            <img id="python_video">
+            <table>
+                <tr>
+                    <td class="tableName">Nama</td>
+                    <!-- <td class="tableData" id="imgName">-</td> -->
+                    <td><input type="text" id="TextInput"></td>
+                </tr>
+                <tr>
+                    <td class="tableName">Intansi</td>
+                    <!-- <td class="tableData" id="pythonStatus">-</td> -->
+                    <td><input type="text" id="TextInput"></td>
+                </tr>
+                <tr>
+                    <td class="tableName">Tujuan</td>
+                    <!-- <td class="tableData" id="pythonTime">-</td> -->
+                    <td><input type="text" id="TextInput"></td>
+                </tr>
+                <!-- <tr>
+                    <td class="tableName">Tanggal</td>
+                    <td class="tableData" id="pythonDate">-</td>
+                    <td><input type="text" id="TextInput"></td>
+                </tr> -->
+            </table>
+            <div class="button-container">
+                <button onclick="datang(), imgName(), pythonTime(), pythonDate(), pythonStatus()">Masuk</button>
+                <!-- <button onclick="pulang(), imgName(), pythonTime(), pythonDate(), pythonStatus()">Pulang</button> -->
+            </div>
+        </div>
+        <!-- Event Container -->
+        <div class="eventContainer">
+            <div class="eventBox">
+                <div class="event_slides">
+                    <!--radio buttons start-->
+                    <input type="radio" name="radio-btn" id="radio1">
+                    <input type="radio" name="radio-btn" id="radio2">
+                    <input type="radio" name="radio-btn" id="radio3">
+                    <input type="radio" name="radio-btn" id="radio4">
+                    <!--radio buttons end-->
+                    <!--slide images start-->
+                    <div class="event_slide event_first">
+                        <img src="./static/500x500/1.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="./static/500x500/2.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="./static/500x500/3.png" alt="">
+                    </div>
+                    <div class="slide">
+                        <img src="./static/500x500/4.png" alt="">
+                    </div>
+                    <!--slide images end-->
+                    <!--automatic navigation start-->
+                    <div class="event_navigation-auto">
+                        <div class="event_auto-btn1"></div>
+                        <div class="event_auto-btn2"></div>
+                        <div class="event_auto-btn3"></div>
+                        <div class="event_auto-btn4"></div>
+                    </div>
+                    <!--automatic navigation end-->
+                </div>
+                    <!--manual navigation start-->
+                    <div class="event_navigation-manual">
+                        <label for="radio1" class="event_manual-btn"></label>
+                        <label for="radio2" class="event_manual-btn"></label>
+                        <label for="radio3" class="event_manual-btn"></label>
+                        <label for="radio4" class="event_manual-btn"></label>
+                    </div>
+                    <!--manual navigation end-->
+            </div>
+        </div>
+    </div>
+
+    <div class="infoContainer">
+        <!-- <video height="100%" width="100%" controls autoplay="autoplay" loop>
+            <source src="./static/video/video.png" type="video/mp4">
+        </video> -->
+        <iframe width="930" height="560" src="https://www.youtube.com/embed/videoseries?list=PLnDJhUxTePd58TFZWEESMr4D8iR0WXvzj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <!-- Ads Container -->
+    <div class="adsContainer">
+        <div class="slider">
+            <figure>
+                <img src="./static/1000x250/1.png">
+                <img src="./static/1000x250/2.png">
+                <img src="./static/1000x250/3.png">
+                <img src="./static/1000x250/4.png">
+            </figure>
+        </div>
+    </div>
+
+    <!-- cursor -->
+    <div class="cursor"></div>
+    <script type="text/javascript">
+        const cursor = document.querySelector('.cursor');
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX + 'px';
+            cursor.style.top = e.pageY + 'px';
+            cursor.setAttribute('data-fromTop', (cursor.offsetTop - scrollY));
+            // console.log(e)
+        });
+        window.addEventListener('scroll', () => {
+            const fromTop = cursor.getAttribute('data-fromTop');
+            cursor.style.top = scrollY + parseInt(fromTop) + 'px';
+            console.log(scrollY);
+        });
+        window.addEventListener('click', () => {
+            if (cursor.classList.contains('click')) {
+                cursor.classList.remove("click");
+                void cursor.offsetWidth; // trigger a DOM reflow
+                cursor.classList.add("click");
+            } else {
+                cursor.classList.add("click");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
